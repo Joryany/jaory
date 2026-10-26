@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8b244f">
+  <title>Jaory's Ticket — tus antojos, tus metas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Jaory's Ticket, inicio">
+      <span class="brand-mark">JT<span>✦</span></span>
+      <span><strong>Jaory's Ticket</strong><small>ANTOJOS CON PROPÓSITO</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="save-status"><i></i> Guardado en este dispositivo</span>
+      <button class="icon-button" id="exportBtn" title="Exportar respaldo" aria-label="Exportar respaldo">↗</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="sparkle">✦</span> TU LISTA DE DESEOS, A TU RITMO</span>
+        <h1>Que cada antojo<br>te acerque a <em>algo más.</em></h1>
+        <p>Construye hábitos con seguimiento diario, cuida tu descanso y convierte tus avances en tickets para conseguir eso que quieres.</p>
+        <a href="#addGoal" class="primary-link">Crear mi primera meta <span>↓</span></a>
+      </div>
+      <div class="ticket-art" aria-hidden="true">
+        <div class="ticket-stamp">JAORY'S<br><b>TICKET</b></div>
+        <div class="ticket-line"></div>
+        <div class="ticket-number">N.º <span>0001</span></div>
+        <div class="ticket-star">✦</div>
+        <div class="ticket-caption">UN PASITO<br>POR VEZ</div>
+      </div>
+    </section>
+
+    <section class="summary-grid" aria-label="Resumen">
+      <article class="summary-card balance-card">
+        <div class="summary-top"><span>Tickets disponibles</span><span class="summary-icon">✦</span></div>
+        <div class="summary-number" id="totalTickets">0 <small>tickets</small></div>
+        <p>Listos para asignar a tus metas</p>
+        <p class="cash-equivalent" id="availableCashValue">Equivalente en efectivo: $0</p>
+      </article>
+      <article class="summary-card">
+        <div class="summary-top"><span>Metas en progreso</span><span class="summary-icon">◷</span></div>
+        <div class="summary-number" id="activeGoals">0</div>
+        <p>Lo que estás construyendo</p>
+      </article>
+      <article class="summary-card">
+        <div class="summary-top"><span>Permitido comprar</span><span class="summary-icon">♡</span></div>
+        <div class="summary-number" id="readyGoals">0</div>
+        <p>Metas que ya puedes disfrutar</p>
+      </article>
+      <article class="summary-card pending-cash-card">
+        <div class="summary-top"><span>Tickets en objetos pendientes</span><span class="summary-icon">⌁</span></div>
+        <div class="summary-number" id="pendingCashValue">$0</div>
+        <p>Valor acumulado en metas aún no compradas</p>
+      </article>
+    </section>
+
+    <section class="workspace">
+      <div class="main-column">
+        <section class="panel" id="addGoal">
+          <div class="section-heading">
+            <div><span class="section-kicker">PASO 01</span><h2>¿Qué quieres conseguir?</h2></div>
+            <span class="heading-decoration">✳</span>
+          </div>
+          <form id="goalForm" class="goal-form">
+            <label class="field full">Nombre del producto
+              <input id="goalName" type="text" maxlength="80" placeholder="Ej. Laca para el pelo" required>
+            </label>
+            <div class="field-row">
+              <label class="field">Precio (COP)
+                <div class="input-prefix"><span>$</span><input id="goalPrice" type="number" min="1" step="1" placeholder="42.000" required></div>
+              </label>
+              <label class="field">Categoría
+                <select id="goalCategory">
+                  <option value="Belleza">Belleza</option><option value="Comida rápida">Comida rápida</option>
+                  <option value="Mecatos">Mecatos</option><option value="Ropa y accesorios">Ropa y accesorios</option>
+                  <option value="Tecnología">Tecnología</option><option value="Experiencias">Experiencias</option><option value="Otro">Otro</option>
+                </select>
+              </label>
+            </div>
+            <label class="field full">Nota (opcional)
+              <input id="goalNote" type="text" maxlength="120" placeholder="Color, marca, lugar…">
+            </label>
+            <button class="button button-primary full-button" type="submit"><span>＋</span> Añadir a mi lista</button>
+          </form>
+          <div class="mini-tip"><span>✧</span><p><b>Pequeños pasos cuentan.</b> Cada ticket que sumas es un avance real hacia tu meta.</p></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading list-heading">
+            <div><span class="section-kicker">PASO 02</span><h2>Mis metas</h2></div>
+            <div class="filter-wrap"><label for="goalFilter" class="sr-only">Filtrar metas</label><select id="goalFilter"><option value="all">Todas</option><option value="saving">En progreso</option><option value="ready">Permitido comprar</option><option value="bought">Ya comprado</option></select></div>
+          </div>
+          <div id="goalList" class="goal-list"></div>
+          <div id="emptyGoals" class="empty-state"><div class="empty-illustration">♡</div><h3>Tu primera meta empieza aquí</h3><p>Añade algo que quieras y calcula cuántos tickets necesitas para conseguirlo.</p></div>
+        </section>
+      </div>
+
+      <aside class="side-column">
+        <section class="panel ticket-panel">
+          <div class="section-heading">
+            <div><span class="section-kicker">PASO 03</span><h2>Sumar tickets</h2></div>
+            <span class="heading-decoration">＋</span>
+          </div>
+          <p class="panel-description">¿Hoy te ganaste una oportunidad de gastar en algo? Regístrala aquí.</p>
+          <form id="ticketForm">
+            <label class="field">¿De qué tipo?
+              <select id="ticketType"><option value="Mecato">Mecato</option><option value="Comida rápida">Comida rápida</option><option value="Bebida">Bebida</option><option value="Otro">Otro gustico</option></select>
+            </label>
+            <label class="field">Valor de esta oportunidad
+              <div class="input-prefix"><span>$</span><input id="ticketValue" type="number" min="1" step="1" value="5000" required></div>
+            </label>
+            <div class="ticket-preview"><span>Esta oportunidad equivale a</span><strong id="ticketPreview">1 ticket</strong><small id="ticketPreviewSub">por valor de $5.000</small></div>
+            <button class="button button-dark full-button" type="submit">＋ Registrar oportunidad</button>
+          </form>
+          <div class="ticket-log-heading"><h3>Últimos registros</h3><button id="clearHistoryBtn" class="text-button" type="button">Borrar historial</button></div>
+          <div id="ticketHistory" class="ticket-history"></div>
+          <div id="emptyHistory" class="history-empty">Tus oportunidades registradas aparecerán aquí.</div>
+        </section>
+
+
+      </aside>
+    </section>
+
+
+    <section class="wellness-grid" id="seguimiento">
+      <section class="panel growth-panel">
+        <div class="section-heading"><div><span class="section-kicker">PROGRESO PERSONAL</span><h2>Tu planta de constancia</h2></div><span class="heading-decoration">✿</span></div>
+        <div class="plant-scene"><div class="plant-sun">☼</div><div id="plantArt" class="plant-art" aria-label="Planta que crece según tu racha">🌱</div><div class="plant-ground"></div></div>
+        <div class="streak-number"><strong id="streakDays">0</strong><span>días seguidos sin Shorts</span></div>
+        <div class="progress-track streak-track"><div id="streakProgress" class="progress-fill" style="width:0%"></div></div>
+        <div class="streak-caption"><span id="nextMilestone">Próximo hito: 7 días</span><span id="milestonePercent">0%</span></div>
+        <div id="milestoneList" class="milestone-list"></div>
+        <p class="soft-note">La racha cuenta días completos registrados sin ver Shorts. Si hay un tropiezo, el contador se reinicia, pero los avances y los tickets ya ganados se conservan.</p>
+      </section>
+      <section class="panel checkin-panel">
+        <div class="section-heading"><div><span class="section-kicker">REGISTRO DIARIO</span><h2>¿Cómo te fue hoy?</h2></div><span class="heading-decoration">✓</span></div>
+        <form id="dailyForm" class="goal-form">
+          <label class="field">Día <input id="dailyDate" type="date" required></label>
+          <label class="field">Minutos de Shorts vistos <input id="shortMinutes" type="number" min="0" max="1440" step="1" value="0" required></label>
+          <div class="habit-rule"><span class="habit-icon">◉</span><div><b>Uso de Shorts</b><small>0 min = 0,02 tickets · 1–15 min = 0,01 tickets · más de 15 min = 0 tickets. La racha continúa solo con 0 min.</small></div></div>
+          <label class="field">Horas dormidas <input id="sleepHours" type="number" min="0" max="24" step="0.25" value="8" required></label>
+          <div class="habit-rule"><span class="habit-icon">☾</span><div><b>Descanso</b><small>8 horas o más = 0,02 tickets.</small></div></div>
+          <label class="check-row"><input id="noJunkFood" type="checkbox"><span><b>Hoy evité mecato, dulces y comida rápida</b><small>Cumplir el objetivo diario suma 0,02 tickets; no se busca comer perfecto ni saltarse comidas.</small></span></label>
+          <label class="field">Nota para quien hace seguimiento (opcional)<textarea id="dailyNote" rows="2" maxlength="400" placeholder="Dificultades, qué ayudó, qué ajustar mañana…"></textarea></label>
+          <button class="button button-primary full-button" type="submit">Guardar seguimiento del día</button>
+        </form>
+        <div id="dailySummary" class="daily-summary"></div>
+      </section>
+    </section>
+
+    <section class="panel meals-panel" id="comidas">
+      <div class="section-heading"><div><span class="section-kicker">CUIDADO DIARIO</span><h2>Mi registro personal de comidas</h2></div><span class="heading-decoration">♡</span></div>
+      <p class="panel-description">Registra una comida o merienda y anota cómo te fue. Cada registro de comida completado suma <b>0,2 tickets</b>. No es necesario comer “perfecto”: el objetivo es crear regularidad y observar hábitos, no castigarte por comer.</p>
+      <form id="mealForm" class="meal-form">
+        <label class="field">Fecha <input id="mealDate" type="date" required></label>
+        <label class="field">Comida <select id="mealType"><option>Desayuno</option><option>Media mañana</option><option>Almuerzo</option><option>Merienda</option><option>Cena</option></select></label>
+        <label class="field meal-description">¿Qué comiste? <input id="mealDescription" type="text" maxlength="180" placeholder="Ej. arroz, huevo y ensalada" required></label>
+        <label class="field">¿Cómo te sentiste? (opcional) <select id="mealFeeling"><option value="">Prefiero no indicar</option><option>Con energía</option><option>Satisfecha/o</option><option>Con hambre después</option><option>Sin mucho apetito</option><option>Comí por ansiedad</option></select></label>
+        <button class="button button-dark" type="submit">＋ Registrar comida · +0,2 tickets</button>
+      </form>
+      <div class="meal-log-heading"><h3>Comidas registradas</h3><span id="mealCount">0 registros</span></div>
+      <div id="mealHistory" class="meal-history"></div>
+    </section>
+
+    <section class="panel guide-panel" id="guia">
+      <div class="section-heading"><div><span class="section-kicker">GUÍA DE ACOMPAÑAMIENTO</span><h2>Manual para la persona que hace seguimiento</h2></div><span class="heading-decoration">✧</span></div>
+      <p class="panel-description">Estas son etapas prácticas para cambiar hábitos, no fases médicas universales. Las ganas de ver vídeos, el sueño y la alimentación no siguen un calendario idéntico en todas las personas.</p>
+      <div class="guide-notice"><b>Regla principal:</b> acompañar sin vigilar de forma humillante, sin castigos y sin retirar comida, descanso ni afecto. La persona que acompaña pregunta, escucha y ayuda a ajustar el entorno; no diagnostica ni reemplaza a un profesional.</div>
+      <div class="phase-list">
+        <article class="phase-card"><span class="phase-days">DÍAS 1–3</span><h3>Fase 1 · Preparar el entorno</h3><p><b>Objetivo:</b> reducir los accesos automáticos a Shorts y establecer una rutina mínima.</p><ol><li>Identificar los momentos de mayor riesgo: al despertar, al llegar a casa, al estudiar o al acostarse.</li><li>Desactivar notificaciones, quitar la aplicación de la pantalla principal y usar límites o bloqueadores.</li><li>Dejar el teléfono fuera de la cama y preparar una actividad alternativa de 5–10 minutos.</li><li>Elegir una hora realista para acostarse y una opción sencilla de desayuno/almuerzo/cena.</li></ol><p class="phase-tip"><b>Si aparecen ganas:</b> esperar 10 minutos, dejar el teléfono lejos, beber agua si apetece y empezar una acción pequeña.</p></article>
+        <article class="phase-card"><span class="phase-days">DÍAS 4–7</span><h3>Fase 2 · Superar los momentos difíciles</h3><p><b>Objetivo:</b> practicar respuestas a los disparadores sin depender solo de la fuerza de voluntad.</p><ol><li>Usar la regla “pausa–nombra–elige”: parar, nombrar la emoción o necesidad y escoger una alternativa.</li><li>Hacer bloques sin teléfono en los momentos de más riesgo; cargarlo fuera del dormitorio.</li><li>Planear descansos breves, movimiento suave o una conversación con alguien de confianza.</li><li>Revisar el registro diario con curiosidad, no como interrogatorio.</li></ol><p class="phase-tip"><b>Si hay aburrimiento o ansiedad:</b> elegir de una lista preparada: ducharse, salir un momento a la luz del día, dibujar, ordenar algo pequeño o escuchar una canción sin abrir el feed.</p></article>
+        <article class="phase-card"><span class="phase-days">SEMANA 2</span><h3>Fase 3 · Construir sustitutos</h3><p><b>Objetivo:</b> hacer que las alternativas sean fáciles y agradables.</p><ol><li>Reservar una actividad corta después de llegar a casa antes de tocar el teléfono.</li><li>Usar un lugar fijo para estudiar y dejar el móvil fuera del alcance.</li><li>Planear comidas regulares y opciones accesibles; no compensar una comida con ayuno.</li><li>Proteger la oportunidad de dormir 8 horas, reduciendo pantallas antes de acostarse.</li></ol><p class="phase-tip"><b>Prevención:</b> anticipar fines de semana, estrés, discusiones y cansancio; preparar un plan alternativo antes de que aparezcan.</p></article>
+        <article class="phase-card"><span class="phase-days">DÍAS 15–30</span><h3>Fase 4 · Consolidar la rutina</h3><p><b>Objetivo:</b> identificar qué funciona y qué necesita cambios.</p><ol><li>Revisar una vez por semana el sueño, el uso de Shorts, las comidas y los desencadenantes.</li><li>Mantener límites digitales que sean realistas y comprobables.</li><li>Reconocer el esfuerzo y las estrategias usadas, no solo los días perfectos.</li><li>Definir una meta pequeña para la semana siguiente.</li></ol><p class="phase-tip"><b>Si la rutina se vuelve demasiado exigente:</b> reducirla a dos acciones esenciales y reconstruir gradualmente.</p></article>
+        <article class="phase-card"><span class="phase-days">1–3 MESES</span><h3>Fase 5 · Mantener y prepararse para tropiezos</h3><p><b>Objetivo:</b> que los hábitos no dependan de la supervisión constante.</p><ol><li>Crear un plan escrito para los momentos de riesgo y revisarlo cada semana.</li><li>Reducir gradualmente los recordatorios externos si la persona puede gestionar el registro.</li><li>Celebrar hitos con recompensas saludables, no con compras impulsivas ni comida como castigo/premio obligatorio.</li><li>Volver al plan al día siguiente de un tropiezo.</li></ol><p class="phase-tip"><b>Importante:</b> un día difícil no borra lo aprendido. La racha es una medida, no una medida del valor de la persona.</p></article>
+      </div>
+      <div class="relapse-plan"><h3>Protocolo si hay una recaída o tropiezo</h3><ol><li><b>Detener el ciclo:</b> cerrar la aplicación o alejar el dispositivo sin insultarse ni intentar “compensar”.</li><li><b>Registrar sin esconderlo:</b> qué ocurrió, cuánto duró y qué lo disparó.</li><li><b>Identificar una sola barrera:</b> por ejemplo, móvil fuera de la habitación o bloqueo en una franja de riesgo.</li><li><b>Retomar en la siguiente oportunidad:</b> la racha puede reiniciarse, pero no se eliminan los tickets, los registros ni los logros previos.</li><li><b>Revisar apoyo:</b> si el uso afecta mucho el sueño, los estudios, el ánimo o la vida diaria, considerar ayuda de un profesional de salud mental.</li></ol></div>
+      <div class="supervisor-box"><h3>Lista de revisión semanal para la persona acompañante</h3><ul><li>¿La persona participó voluntariamente y se sintió respetada?</li><li>¿Qué situación disparó más las ganas de abrir Shorts?</li><li>¿Qué alternativa ayudó, aunque fuera un poco?</li><li>¿El horario de sueño fue realista? ¿Qué barrera se puede reducir?</li><li>¿Hay comidas regulares y suficientes, sin prohibiciones rígidas?</li><li>¿Qué ajuste concreto se probará la próxima semana?</li></ul><p>El acompañante puede añadir sus observaciones en la nota diaria. No debe pedir contraseñas personales ni revisar mensajes privados.</p></div>
+      <div class="phase-picker"><label class="field">Fase actual de seguimiento<select id="currentPhase"><option value="1">Fase 1 · Preparar el entorno</option><option value="2">Fase 2 · Superar momentos difíciles</option><option value="3">Fase 3 · Construir sustitutos</option><option value="4">Fase 4 · Consolidar la rutina</option><option value="5">Fase 5 · Mantener los hábitos</option></select></label><button id="savePhaseBtn" type="button" class="button button-primary">Guardar fase actual</button><p id="phaseSaved" class="soft-note"></p></div>
+    </section>
+
+    <footer><span class="footer-brand">Jaory's Ticket <span>✦</span></span><span>Un gustico a la vez.</span><button id="resetAllBtn" class="text-button danger-text">Reiniciar datos</button></footer>
+  </main>
+
+  <dialog id="assignDialog" class="dialog">
+    <form method="dialog" class="dialog-close-form"><button class="dialog-close" aria-label="Cerrar">×</button></form>
+    <span class="section-kicker">ASIGNAR TICKETS</span><h2>¿A qué meta van?</h2><p id="assignAvailable" class="dialog-subtitle"></p>
+    <form id="assignForm">
+      <label class="field">Selecciona una meta<select id="assignGoal" required></select></label>
+      <label class="field">Cantidad de tickets<input id="assignAmount" type="number" min="0.01" step="0.01" required></label>
+      <div class="dialog-actions"><button type="button" class="button button-light" id="cancelAssign">Cancelar</button><button type="submit" class="button button-primary">Asignar tickets</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
